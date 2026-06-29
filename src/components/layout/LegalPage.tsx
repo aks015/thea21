@@ -47,13 +47,13 @@ export default function LegalPage({
         <h1 className="font-display text-4xl font-bold tracking-tight">
           {title}
         </h1>
-        <p className="mt-3 text-sm text-fg/45">Last updated: {lastUpdated}</p>
+        <p className="mt-3 text-sm text-fg/60">Last updated: {lastUpdated}</p>
         <div className="mt-10 flex flex-col gap-9">{children}</div>
       </main>
 
       {/* Footer */}
       <footer className="border-t border-fg/10">
-        <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-fg/45 sm:flex-row">
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-fg/60 sm:flex-row">
           <p>© 2026 {brand.name}. All rights reserved.</p>
           <div className="flex gap-5">
             <Link href="/privacy" className="hover:text-fg">

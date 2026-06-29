@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import CountUp from "@/components/ui/CountUp";
 import { stats } from "@/constants/site";
 
 export default function About() {
@@ -42,10 +43,11 @@ export default function About() {
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="glass rounded-2xl p-6"
             >
-              <div className="font-display text-3xl font-bold text-gradient-accent sm:text-4xl">
-                {stat.value}
-              </div>
-              <div className="mt-1.5 text-xs uppercase tracking-wider text-fg/45">
+              <CountUp
+                value={stat.value}
+                className="block font-display text-3xl font-bold text-gradient-accent sm:text-4xl"
+              />
+              <div className="mt-1.5 text-xs uppercase tracking-wider text-fg/60">
                 {stat.label}
               </div>
             </motion.div>

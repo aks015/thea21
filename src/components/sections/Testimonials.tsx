@@ -61,7 +61,7 @@ export default function Testimonials() {
                 )}
                 <span className="flex flex-col">
                   <span className="text-sm font-semibold text-fg">{t.name}</span>
-                  <span className="text-xs text-fg/45">{t.role}</span>
+                  <span className="text-xs text-fg/60">{t.role}</span>
                 </span>
               </figcaption>
             </motion.figure>

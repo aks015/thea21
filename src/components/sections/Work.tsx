@@ -25,7 +25,15 @@ function LiveProjectCard({
   project: LiveProject;
   index: number;
 }) {
-  const [imgError, setImgError] = useState(false);
+  // Image source chain: curated static cover → live mShots screenshot → branded
+  // fallback card. So a cold-started host can never make the showcase look broken.
+  const sources = [
+    ...("cover" in project && project.cover ? [project.cover] : []),
+    shotUrl(project.url),
+  ];
+  const [srcIndex, setSrcIndex] = useState(0);
+  const src = sources[srcIndex];
+  const imgError = srcIndex >= sources.length;
 
   return (
     <motion.a
@@ -36,8 +44,10 @@ function LiveProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay: (index % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative block cursor-pointer"    >
-      <div className="glass overflow-hidden rounded-3xl p-3 transition-colors duration-300 group-hover:border-accent/30">
+      className="group relative block h-full cursor-pointer"    >
+      {/* Animated gradient ring — makes the real, shipped work pop vs. concepts */}
+      <div className="animate-shimmer pointer-events-none absolute -inset-px rounded-[calc(1.5rem+1px)] bg-[linear-gradient(110deg,rgba(96,165,250,0.5),rgba(59,130,246,0.15),rgba(29,78,216,0.5))] bg-[length:200%_100%] opacity-40 blur-[1px] transition-opacity duration-300 group-hover:opacity-90" />
+      <div className="glass relative flex h-full flex-col overflow-hidden rounded-3xl p-3 transition-colors duration-300 group-hover:border-accent/30">
         {/* Browser mockup */}
         <div className="relative overflow-hidden rounded-2xl border border-fg/5 bg-surface">
           {/* Top bar */}
@@ -50,23 +60,25 @@ function LiveProjectCard({
             </span>
           </div>
 
-          {/* Real, live screenshot */}
-          <div className="relative aspect-[16/10] overflow-hidden bg-fg/[0.03]">
+          {/* Real, live screenshot. Aspect ≈ matches the curated covers
+              (~2.19:1) so the full screenshot shows with no side-cropping. */}
+          <div className="relative aspect-[11/5] overflow-hidden bg-fg/[0.03]">
             {imgError ? (
               // Graceful fallback — never show a broken/error image.
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-accent/15 via-surface to-bg">
                 <span className="font-display text-2xl font-bold text-fg/85">
                   {project.title}
                 </span>
-                <span className="text-xs text-fg/45">Live preview · click to open</span>
+                <span className="text-xs text-fg/60">Live preview · click to open</span>
               </div>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={shotUrl(project.url)}
+                key={src}
+                src={src}
                 alt={`${project.title} — live website screenshot`}
                 loading="lazy"
-                onError={() => setImgError(true)}
+                onError={() => setSrcIndex((i) => i + 1)}
                 className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
               />
             )}
@@ -90,13 +102,13 @@ function LiveProjectCard({
         </div>
 
         {/* Meta */}
-        <div className="px-3 py-4">
+        <div className="flex flex-1 flex-col px-3 py-4">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h3 className="font-display text-lg font-semibold text-fg">
                 {project.title}
               </h3>
-              <p className="text-sm text-fg/45">{project.category}</p>
+              <p className="text-sm text-fg/60">{project.category}</p>
             </div>
             <span className="shrink-0 rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-xs text-accent-soft">
               {project.tag}
@@ -107,7 +119,7 @@ function LiveProjectCard({
           {/* Mini case study — honest, qualitative */}
           <dl className="mt-4 flex flex-col gap-3 border-t border-fg/5 pt-4">
             <div>
-              <dt className="text-[11px] font-semibold uppercase tracking-wider text-fg/40">
+              <dt className="text-[11px] font-semibold uppercase tracking-wider text-fg/55">
                 Challenge
               </dt>
               <dd className="mt-1 text-sm leading-relaxed text-fg/55">
@@ -124,13 +136,14 @@ function LiveProjectCard({
             </div>
           </dl>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-auto flex flex-wrap gap-2 pt-5">
             {project.stack.map((t) => (
               <span
                 key={t}
                 className="rounded-full border border-fg/10 bg-fg/5 px-2.5 py-1 text-[11px] text-fg/60"
               >
                 {t}
+                
               </span>
             ))}
           </div>
@@ -187,7 +200,7 @@ function ProjectCard({
             <h3 className="font-display text-lg font-semibold text-fg">
               {project.title}
             </h3>
-            <p className="text-sm text-fg/45">{project.category}</p>
+            <p className="text-sm text-fg/60">{project.category}</p>
           </div>
           <span className="rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-xs text-accent-soft">
             {project.tag}

@@ -55,7 +55,7 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-fg/40">
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-fg/55">
               Navigate
             </h4>
             <ul className="flex flex-col gap-3">
@@ -74,7 +74,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-fg/40">
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-fg/55">
               Get in touch
             </h4>
             <ul className="flex flex-col gap-3 text-sm text-fg/60">
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-fg/10 pt-6 text-sm text-fg/40 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-fg/10 pt-6 text-sm text-fg/55 sm:flex-row">
           <p>
             © {2026} {brand.name}. All rights reserved.
           </p>

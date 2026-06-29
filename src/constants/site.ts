@@ -28,6 +28,7 @@ export const brand = {
 export const nav = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
@@ -148,12 +149,18 @@ export const projects = [
 // `url` is the live link shown on the "Visit Live Site" button + used to
 // auto-generate the preview screenshot. Stack/category yahan apne hisaab se
 // tweak kar lena — ye tumhare apne projects hain.
+// `cover` (optional) — a curated static screenshot in /public/work. When set it
+// is shown instead of the auto-generated live screenshot, so a cold-started host
+// can never make the showcase look broken. Drop a 1280×800 image at the path and
+// it takes over automatically; until then it falls back to the live shot. See
+// public/work/README.md.
 export const liveProjects = [
   {
     title: "TopNotes",
     category: "EdTech Platform",
     tag: "Live Project",
     url: "https://topnotes-frontend.onrender.com/",
+    cover: "/work/topnotes.png",
     blurb:
       "An education platform where students learn from India's top performers — curated, topper-made notes in one clean, fast place.",
     challenge:
@@ -167,6 +174,7 @@ export const liveProjects = [
     category: "Mentorship Platform",
     tag: "Live Project",
     url: "https://prep-meet-nu.vercel.app/",
+    cover: "/work/prepmeet.png",
     blurb:
       "A mentorship platform that connects people with mentors who've actually been there — book a session and get guidance that's real.",
     challenge:
@@ -280,6 +288,58 @@ export const faqs = [
     a: "Definitely. We specialize in transforming dated sites into modern, high-performing experiences that convert.",
   },
 ];
+
+// 💰 Pricing packages. Prices are indicative "starting at" figures — tweak the
+// numbers, features and which tier is `highlighted` (the visually featured plan)
+// to match your real offering. `cta` is the button label; all link to #contact.
+export const packages = [
+  {
+    name: "Starter",
+    price: "₹15,000",
+    priceNote: "starting at",
+    tagline: "A sharp one-page site to get you live fast.",
+    features: [
+      "Single-page website",
+      "Mobile responsive",
+      "Contact / lead form",
+      "Basic SEO setup",
+      "Delivered in 3–5 days",
+    ],
+    cta: "Start with Starter",
+    highlighted: false,
+  },
+  {
+    name: "Growth",
+    price: "₹40,000",
+    priceNote: "starting at",
+    tagline: "A full multi-page site built to convert and scale.",
+    features: [
+      "Up to 6 pages",
+      "Premium custom design",
+      "Animations & interactions",
+      "SEO + analytics setup",
+      "CMS / easy content edits",
+      "Priority support",
+    ],
+    cta: "Choose Growth",
+    highlighted: true,
+  },
+  {
+    name: "Custom",
+    price: "Let's talk",
+    priceNote: "tailored",
+    tagline: "Web apps, ecommerce or anything ambitious.",
+    features: [
+      "Web apps & dashboards",
+      "Ecommerce / payments",
+      "Custom integrations",
+      "Scalable architecture",
+      "Ongoing maintenance",
+    ],
+    cta: "Request a quote",
+    highlighted: false,
+  },
+] as const;
 
 export const budgets = ["< ₹25k", "₹25k – ₹50k", "₹50k – ₹1L", "₹1L+"];
 

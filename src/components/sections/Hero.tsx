@@ -131,9 +131,13 @@ export default function Hero() {
           variants={item}
           className="mt-7 flex h-9 items-center justify-center font-display text-2xl font-medium text-fg/80 sm:text-3xl"
         >
-          <span className="text-fg/40">We craft&nbsp;</span>
-          <span className="text-gradient-accent">{typed}</span>
-          <span className="ml-0.5 inline-block h-7 w-[3px] animate-pulse bg-accent sm:h-8" />
+          <span className="text-fg/55">We craft&nbsp;</span>
+          {/* Reserve a constant width for the longest phrase ("Landing Pages.")
+              so the centered line doesn't jitter horizontally as words cycle. */}
+          <span className="inline-flex min-w-[13ch] items-center justify-start">
+            <span className="text-gradient-accent">{typed}</span>
+            <span className="ml-0.5 inline-block h-7 w-[3px] animate-pulse bg-accent sm:h-8" />
+          </span>
         </motion.div>
 
         <motion.p
@@ -161,7 +165,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-fg/40"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-fg/55"
       >
         <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
         <motion.div

@@ -27,10 +27,10 @@ export default function Marquee({ items, reverse, className }: Props) {
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="flex items-center gap-4 whitespace-nowrap text-lg font-medium text-fg/40"
+            className="glass inline-flex items-center gap-2.5 whitespace-nowrap rounded-full px-5 py-2.5 text-base font-medium text-fg/80"
           >
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             {item}
-            <span className="text-accent">✦</span>
           </span>
         ))}
       </div>

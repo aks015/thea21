@@ -1,4 +1,6 @@
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import WhatsAppFab from "@/components/ui/WhatsAppFab";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -12,28 +14,48 @@ import Process from "@/components/sections/Process";
 import TechStack from "@/components/sections/TechStack";
 import WhyUs from "@/components/sections/WhyUs";
 import Promise from "@/components/sections/Promise";
+import Packages from "@/components/sections/Packages";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import Founders from "@/components/sections/Founders";
 import Contact from "@/components/sections/Contact";
 
+// Subtle raised tone applied to alternating sections so the dark page reads as
+// distinct bands instead of one continuous surface (visual rhythm).
+const band = "bg-surface/30";
+
 export default function Home() {
   return (
     <SmoothScroll>
+      <ScrollProgress />
+      <ScrollToTop />
       <WhatsAppFab />
       <Navbar />
       <main className="relative">
         <Hero />
-        <About />
+        <div className={band}>
+          <About />
+        </div>
         <Services />
-        <Work />
+        <div className={band}>
+          <Work />
+        </div>
         <CTABanner />
-        <Process />
+        <div className={band}>
+          <Process />
+        </div>
         <TechStack />
-        <WhyUs />
+        <div className={band}>
+          <WhyUs />
+        </div>
         <Promise />
+        <div className={band}>
+          <Packages />
+        </div>
         <Testimonials />
-        <FAQ />
+        <div className={band}>
+          <FAQ />
+        </div>
         <Founders />
         <Contact />
       </main>

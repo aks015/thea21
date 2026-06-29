@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import Lenis from "lenis";
 import { setLenis } from "@/lib/lenis";
 
@@ -52,5 +53,8 @@ export default function SmoothScroll({
     };
   }, []);
 
-  return <>{children}</>;
+  // `reducedMotion="user"` makes every Framer Motion animation honor the OS
+  // "reduce motion" setting — transform/layout animations are skipped for those
+  // users (a gentle opacity fade may remain).
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }
