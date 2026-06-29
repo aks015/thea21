@@ -51,6 +51,30 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Lead safety net: also record the enquiry via email (Web3Forms) so a lead
+    // is never lost if the user doesn't actually send the WhatsApp message.
+    // Get a free access key at https://web3forms.com and set it in .env.local.
+    const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (web3formsKey) {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: web3formsKey,
+          subject: `New Project Enquiry — ${form.name || "Website"}`,
+          from_name: brand.name,
+          name: form.name,
+          business: form.business || "—",
+          email: form.email,
+          phone: form.phone || "—",
+          budget,
+          message: form.message,
+        }),
+      }).catch(() => {
+        /* non-blocking — WhatsApp still opens below */
+      });
+    }
+
     const number = brand.whatsapp.replace(/\D/g, "");
     const text =
       `*New Project Enquiry — ${brand.name}*\n\n` +
@@ -125,7 +149,7 @@ export default function Contact() {
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                   <Phone className="h-4 w-4" />
                 </span>
-                <a href={`tel:${brand.phone}`} className="hover:text-fg">
+                <a href={`tel:${brand.phone.replace(/\s/g, "")}`} className="hover:text-fg">
                   {brand.phone}
                 </a>
               </li>
@@ -168,10 +192,11 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label htmlFor="contact-name" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                       Name
                     </label>
                     <input
+                      id="contact-name"
                       required
                       value={form.name}
                       onChange={update("name")}
@@ -180,10 +205,11 @@ export default function Contact() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label htmlFor="contact-business" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                       Business
                     </label>
                     <input
+                      id="contact-business"
                       value={form.business}
                       onChange={update("business")}
                       placeholder="Company name"
@@ -194,10 +220,11 @@ export default function Contact() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label htmlFor="contact-email" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                       Email
                     </label>
                     <input
+                      id="contact-email"
                       required
                       type="email"
                       value={form.email}
@@ -207,10 +234,11 @@ export default function Contact() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label htmlFor="contact-phone" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                       Phone
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       value={form.phone}
                       onChange={update("phone")}
@@ -221,14 +249,15 @@ export default function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                  <span id="budget-label" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                     Budget
-                  </label>
-                  <div className="flex flex-wrap gap-2">
+                  </span>
+                  <div className="flex flex-wrap gap-2" role="group" aria-labelledby="budget-label">
                     {budgets.map((b) => (
                       <button
                         type="button"
                         key={b}
+                        aria-pressed={budget === b}
                         onClick={() => setBudget(b)}
                         className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                           budget === b
@@ -243,10 +272,11 @@ export default function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                  <label htmlFor="contact-message" className="text-xs font-medium uppercase tracking-wider text-fg/45">
                     Message
                   </label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={4}
                     value={form.message}

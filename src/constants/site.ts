@@ -9,7 +9,7 @@ export const brand = {
   // Short wordmark — used in the navbar logo & footer (keeps it compact).
   shortName: "TheA21",
   tagline: "Your Digital Growth Partner.",
-  email: "hello@thea21.in",
+  email: "thea21groups@gmail.com",
   phone: "+91 82690 06693",
   // 👇 Akshat ka WhatsApp number — international format, sirf digits
   // (no +, no spaces). India ke liye 91 se shuru. Example: "919876543210"
@@ -21,6 +21,7 @@ export const brand = {
     instagram: "",
     linkedin: "",
     twitter: "",
+    facebook: "https://www.facebook.com/profile.php?id=61591489499616",
   },
 };
 
@@ -42,9 +43,9 @@ export const hero = {
 
 export const stats = [
   { value: "100%", label: "Custom-Built" },
-  { value: "<2s", label: "Load Time Focus" },
-  { value: "7+", label: "Industries Covered" },
-  { value: "24/7", label: "Support" },
+  { value: "<2s", label: "Load-Time Focus" },
+  { value: "7+", label: "Industries Designed" },
+  { value: "24h", label: "Response Time" },
 ];
 
 export const services = [
@@ -143,6 +144,39 @@ export const projects = [
   },
 ] as const;
 
+// 🔴 REAL, LIVE projects — actual shipped work (not concepts).
+// `url` is the live link shown on the "Visit Live Site" button + used to
+// auto-generate the preview screenshot. Stack/category yahan apne hisaab se
+// tweak kar lena — ye tumhare apne projects hain.
+export const liveProjects = [
+  {
+    title: "TopNotes",
+    category: "EdTech Platform",
+    tag: "Live Project",
+    url: "https://topnotes-frontend.onrender.com/",
+    blurb:
+      "An education platform where students learn from India's top performers — curated, topper-made notes in one clean, fast place.",
+    challenge:
+      "Quality, exam-ready notes are scattered across the web and hard to trust.",
+    solution:
+      "A single, fast platform to access curated notes made by verified toppers.",
+    stack: ["React", "Node.js", "MongoDB", "Tailwind"],
+  },
+  {
+    title: "PrepMeet",
+    category: "Mentorship Platform",
+    tag: "Live Project",
+    url: "https://prep-meet-nu.vercel.app/",
+    blurb:
+      "A mentorship platform that connects people with mentors who've actually been there — book a session and get guidance that's real.",
+    challenge:
+      "Finding a mentor who has actually walked the path is hard and intimidating.",
+    solution:
+      "A booking platform that connects people with experienced mentors for 1:1 guidance.",
+    stack: ["Next.js", "Tailwind", "Node.js", "MongoDB"],
+  },
+] as const;
+
 export const process = [
   { step: "01", title: "Discovery", desc: "We learn your goals, brand and audience to define the right strategy." },
   { step: "02", title: "Design", desc: "We craft a premium UI/UX prototype you'll fall in love with." },
@@ -174,6 +208,36 @@ export const promises = [
   { title: "Code You Own", desc: "Clean, scalable code with zero lock-in. It's yours.", icon: "ShieldCheck" },
   { title: "Post-Launch Support", desc: "We're here after launch for updates and peace of mind.", icon: "LifeBuoy" },
 ];
+
+// Real client testimonials. The Testimonials section auto-hides while this is
+// empty, so the site NEVER shows fake reviews. Add real ones from TopNotes /
+// PrepMeet owners (and future clients) and they'll appear automatically.
+// `avatar` is optional — without it, the client's initials are shown.
+export const testimonials: {
+  quote: string;
+  name: string;
+  role: string;
+  avatar?: string;
+}[] = [
+  // {
+  //   quote:
+  //     "TheA21 turned our idea into a fast, beautiful product in record time. Communication was clear and the result exceeded expectations.",
+  //   name: "Client Name",
+  //   role: "Founder, Company",
+  //   avatar: "/brand/clients/client-name.png", // optional
+  // },
+];
+
+// 👤 Founder intro — humanises the studio (big trust signal for a small team).
+// TODO: confirm full name, personalise the bio, and add a square headshot at
+// public/brand/founder.png then set `photo: "/brand/founder.png"`.
+// Leave `photo` empty to show initials instead (no broken image).
+export const founder = {
+  name: "Akshat",
+  role: "Founder & Lead Developer",
+  photo: "",
+  bio: "I started TheA21 to help startups and growing businesses launch fast, premium, conversion-focused digital experiences. I lead every project end-to-end — from the first idea to a live, polished product you're proud of.",
+};
 
 export const faqs = [
   {

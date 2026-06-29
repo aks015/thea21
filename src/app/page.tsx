@@ -1,5 +1,4 @@
 import SmoothScroll from "@/components/providers/SmoothScroll";
-import CustomCursor from "@/components/ui/CustomCursor";
 import WhatsAppFab from "@/components/ui/WhatsAppFab";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,13 +12,14 @@ import Process from "@/components/sections/Process";
 import TechStack from "@/components/sections/TechStack";
 import WhyUs from "@/components/sections/WhyUs";
 import Promise from "@/components/sections/Promise";
+import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
+import Founder from "@/components/sections/Founder";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
     <SmoothScroll>
-      <CustomCursor />
       <WhatsAppFab />
       <Navbar />
       <main className="relative">
@@ -32,7 +32,9 @@ export default function Home() {
         <TechStack />
         <WhyUs />
         <Promise />
+        <Testimonials />
         <FAQ />
+        <Founder />
         <Contact />
       </main>
       <Footer />

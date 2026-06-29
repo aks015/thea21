@@ -1,6 +1,7 @@
-import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, Facebook } from "lucide-react";
 import { brand, nav } from "@/constants/site";
-import LogoMark from "@/components/ui/LogoMark";
 
 export default function Footer() {
   return (
@@ -10,7 +11,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-2.5">
-              <LogoMark className="h-14 w-auto text-fg" />
+              <Image
+                src="/brand/logo.png"
+                alt={brand.name}
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-full object-contain ring-1 ring-fg/10"
+              />
               <span className="font-display text-2xl font-bold tracking-tight">
                 {brand.shortName}
               </span>
@@ -22,6 +29,7 @@ export default function Footer() {
             {/* Only render socials that actually have a URL set in site.ts */}
             {(() => {
               const links = [
+                { icon: Facebook, href: brand.socials.facebook },
                 { icon: Instagram, href: brand.socials.instagram },
                 { icon: Linkedin, href: brand.socials.linkedin },
                 { icon: Twitter, href: brand.socials.twitter },
@@ -78,7 +86,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-accent" />
-                <a href={`tel:${brand.phone}`} className="hover:text-fg">
+                <a href={`tel:${brand.phone.replace(/\s/g, "")}`} className="hover:text-fg">
                   {brand.phone}
                 </a>
               </li>
@@ -94,7 +102,14 @@ export default function Footer() {
           <p>
             © {2026} {brand.name}. All rights reserved.
           </p>
-          <p>Crafted with precision · Designed to convert</p>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="transition-colors hover:text-fg">
+              Privacy
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-fg">
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

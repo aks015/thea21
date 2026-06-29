@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { brand, nav } from "@/constants/site";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import LogoMark from "@/components/ui/LogoMark";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,8 +53,15 @@ export default function Navbar() {
             : "bg-transparent"
         )}
       >
-        <a href="#" aria-label={brand.name} className="flex items-center gap-2">
-          <LogoMark className="h-11 w-auto text-fg" />
+        <a href="#" aria-label={brand.name} className="flex items-center gap-2.5">
+          <Image
+            src="/brand/logo.png"
+            alt={brand.name}
+            width={44}
+            height={44}
+            priority
+            className="h-11 w-11 rounded-full object-contain ring-1 ring-fg/10"
+          />
           <span className="font-display text-xl font-bold tracking-tight">
             {brand.shortName}
           </span>
