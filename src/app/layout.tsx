@@ -19,7 +19,7 @@ const sora = Sora({
 
 // Live domain — used for absolute preview-image URLs, sitemap, robots and the
 // structured-data schema below. Override with NEXT_PUBLIC_SITE_URL if it changes.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thea21.in";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thea21.in";
 
 // Organization schema (JSON-LD) — helps Google understand the business and can
 // enable richer search results / knowledge-panel info.
