@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -18,6 +18,14 @@ export default function Reveal({
   y = 28,
   className,
 }: Props) {
+  const reduce = useReducedMotion();
+
+  // Reduced-motion (or no JS-driven animation desired): render fully visible
+  // immediately — no transform, no fade, and never stuck at opacity:0.
+  if (reduce) {
+    return <div className={cn(className)}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y }}

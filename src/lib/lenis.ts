@@ -18,3 +18,12 @@ export function stopLenis() {
 export function startLenis() {
   instance?.start();
 }
+
+/** Smooth-scroll to the top, using Lenis when active, else native scroll. */
+export function scrollToTop() {
+  if (instance) {
+    instance.scrollTo(0);
+  } else if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}

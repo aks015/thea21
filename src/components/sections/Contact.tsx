@@ -246,7 +246,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="contact-name"
-                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/60"
                     >
                       Name
                     </label>
@@ -265,7 +265,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="contact-business"
-                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/60"
                     >
                       Business
                     </label>
@@ -286,7 +286,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="contact-email"
-                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/60"
                     >
                       Email
                     </label>
@@ -306,7 +306,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="contact-phone"
-                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/60"
                     >
                       Phone
                     </label>
@@ -328,7 +328,7 @@ export default function Contact() {
                 <div className="flex flex-col gap-2">
                   <span
                     id="ptype-label"
-                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/60"
                   >
                     Project type
                   </span>
@@ -355,7 +355,7 @@ export default function Contact() {
                 <div className="flex flex-col gap-2">
                   <span
                     id="budget-label"
-                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/60"
                   >
                     Budget
                   </span>
@@ -381,7 +381,7 @@ export default function Contact() {
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="contact-message"
-                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/60"
                   >
                     Message
                   </label>
@@ -414,7 +414,7 @@ export default function Contact() {
                     )}
                   </MagneticButton>
                 </div>
-                <p className="text-center text-xs leading-relaxed text-fg/40">
+                <p className="text-center text-xs leading-relaxed text-fg/55">
                   Opens WhatsApp with your details ready to send. By submitting you
                   agree to our{" "}
                   <Link

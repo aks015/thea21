@@ -104,7 +104,7 @@ export default function ProjectModal({
                 <span className="rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-xs text-accent-soft">
                   {project.tag}
                 </span>
-                <span className="text-sm text-fg/45">{project.category}</span>
+                <span className="text-sm text-fg/60">{project.category}</span>
               </div>
 
               <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-fg/60">
@@ -113,7 +113,7 @@ export default function ProjectModal({
 
               <div className="mt-7 grid gap-7 sm:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg/40">
+                  <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg/55">
                     What&apos;s included
                   </h4>
                   <ul className="flex flex-col gap-2.5">
@@ -132,7 +132,7 @@ export default function ProjectModal({
                 </div>
 
                 <div>
-                  <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg/40">
+                  <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg/55">
                     Built with
                   </h4>
                   <div className="flex flex-wrap gap-2">

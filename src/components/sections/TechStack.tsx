@@ -13,7 +13,7 @@ export default function TechStack() {
     <section className="relative overflow-hidden py-24">
       <div className="mx-auto mb-12 max-w-3xl px-6 text-center">
         <Reveal>
-          <span className="text-sm font-medium uppercase tracking-[0.3em] text-fg/40">
+          <span className="text-sm font-medium uppercase tracking-[0.3em] text-fg/55">
             Our Toolkit
           </span>
         </Reveal>
