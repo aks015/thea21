@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Send,
@@ -9,14 +10,28 @@ import {
   Phone,
   MapPin,
   MessageCircle,
+  User,
+  Building2,
+  Loader2,
 } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { onContactPrefill } from "@/lib/contactPrefill";
-import { brand, budgets } from "@/constants/site";
+import { brand, budgets, projectTypes } from "@/constants/site";
 
 const inputClass =
   "w-full rounded-xl border border-fg/10 bg-fg/[0.03] px-4 py-3.5 text-sm text-fg placeholder:text-fg/35 outline-none transition-colors focus:border-accent/60 focus:bg-fg/[0.05]";
+const iconInputClass =
+  "w-full rounded-xl border border-fg/10 bg-fg/[0.03] py-3.5 pl-11 pr-4 text-sm text-fg placeholder:text-fg/35 outline-none transition-colors focus:border-accent/60 focus:bg-fg/[0.05]";
+const iconClass =
+  "pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-fg/35";
+
+const pillClass = (active: boolean) =>
+  `rounded-full border px-4 py-2 text-sm transition-colors ${
+    active
+      ? "border-accent bg-accent/15 text-fg"
+      : "border-fg/10 text-fg/55 hover:border-fg/25"
+  }`;
 
 const emptyForm = {
   name: "",
@@ -28,7 +43,10 @@ const emptyForm = {
 
 export default function Contact() {
   const [budget, setBudget] = useState(budgets[1]);
+  const [projectType, setProjectType] = useState(projectTypes[0]);
   const [form, setForm] = useState(emptyForm);
+  const [honey, setHoney] = useState(""); // honeypot — stays empty for humans
+  const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   // Allow the project modal to pre-fill the message and scroll here.
@@ -46,53 +64,72 @@ export default function Contact() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  // Builds a pre-filled WhatsApp message and opens the chat with Akshat.
-  // The number lives in src/constants/site.ts -> brand.whatsapp
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return;
 
-    // Lead safety net: also record the enquiry via email (Web3Forms) so a lead
-    // is never lost if the user doesn't actually send the WhatsApp message.
-    // Get a free access key at https://web3forms.com and set it in .env.local.
-    const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    if (web3formsKey) {
-      fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: web3formsKey,
-          subject: `New Project Enquiry — ${form.name || "Website"}`,
-          from_name: brand.name,
-          name: form.name,
-          business: form.business || "—",
-          email: form.email,
-          phone: form.phone || "—",
-          budget,
-          message: form.message,
-        }),
-      }).catch(() => {
-        /* non-blocking — WhatsApp still opens below */
-      });
+    // Bot trap — if the hidden honeypot was filled, silently bail.
+    if (honey) {
+      setSubmitted(true);
+      return;
     }
 
+    setSending(true);
+
+    // Open WhatsApp INSIDE the click gesture (before any await) so the browser
+    // doesn't block the popup.
     const number = brand.whatsapp.replace(/\D/g, "");
     const text =
       `*New Project Enquiry — ${brand.name}*\n\n` +
       `*Name:* ${form.name}\n` +
       `*Business:* ${form.business || "—"}\n` +
+      `*Project:* ${projectType}\n` +
       `*Email:* ${form.email}\n` +
       `*Phone:* ${form.phone || "—"}\n` +
       `*Budget:* ${budget}\n\n` +
       `*Message:*\n${form.message}`;
+    window.open(
+      `https://wa.me/${number}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
-    const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Record the lead via email so nothing is lost even if WhatsApp isn't sent.
+    // Free access key at https://web3forms.com — set NEXT_PUBLIC_WEB3FORMS_KEY.
+    const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (web3formsKey) {
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: web3formsKey,
+            subject: `New Project Enquiry — ${form.name || "Website"}`,
+            from_name: brand.name,
+            name: form.name,
+            business: form.business || "—",
+            project_type: projectType,
+            email: form.email,
+            phone: form.phone || "—",
+            budget,
+            message: form.message,
+            botcheck: honey,
+          }),
+        });
+      } catch {
+        /* non-blocking — the WhatsApp message already opened */
+      }
+    }
+
+    setSending(false);
     setSubmitted(true);
   };
 
   const resetForm = () => {
     setForm(emptyForm);
     setBudget(budgets[1]);
+    setProjectType(projectTypes[0]);
+    setHoney("");
     setSubmitted(false);
   };
 
@@ -149,7 +186,10 @@ export default function Contact() {
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                   <Phone className="h-4 w-4" />
                 </span>
-                <a href={`tel:${brand.phone.replace(/\s/g, "")}`} className="hover:text-fg">
+                <a
+                  href={`tel:${brand.phone.replace(/\s/g, "")}`}
+                  className="hover:text-fg"
+                >
                   {brand.phone}
                 </a>
               </li>
@@ -190,80 +230,147 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                {/* Honeypot — hidden from humans, traps bots */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honey}
+                  onChange={(e) => setHoney(e.target.value)}
+                  className="hidden"
+                />
+
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="contact-name" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label
+                      htmlFor="contact-name"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    >
                       Name
                     </label>
-                    <input
-                      id="contact-name"
-                      required
-                      value={form.name}
-                      onChange={update("name")}
-                      placeholder="John Doe"
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <User className={iconClass} />
+                      <input
+                        id="contact-name"
+                        required
+                        value={form.name}
+                        onChange={update("name")}
+                        placeholder="John Doe"
+                        className={iconInputClass}
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="contact-business" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label
+                      htmlFor="contact-business"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    >
                       Business
                     </label>
-                    <input
-                      id="contact-business"
-                      value={form.business}
-                      onChange={update("business")}
-                      placeholder="Company name"
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <Building2 className={iconClass} />
+                      <input
+                        id="contact-business"
+                        value={form.business}
+                        onChange={update("business")}
+                        placeholder="Company name"
+                        className={iconInputClass}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="contact-email" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label
+                      htmlFor="contact-email"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    >
                       Email
                     </label>
-                    <input
-                      id="contact-email"
-                      required
-                      type="email"
-                      value={form.email}
-                      onChange={update("email")}
-                      placeholder="you@company.com"
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <Mail className={iconClass} />
+                      <input
+                        id="contact-email"
+                        required
+                        type="email"
+                        value={form.email}
+                        onChange={update("email")}
+                        placeholder="you@company.com"
+                        className={iconInputClass}
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="contact-phone" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                    <label
+                      htmlFor="contact-phone"
+                      className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                    >
                       Phone
                     </label>
-                    <input
-                      id="contact-phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={update("phone")}
-                      placeholder="+91 00000 00000"
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <Phone className={iconClass} />
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={update("phone")}
+                        placeholder="+91 00000 00000"
+                        className={iconInputClass}
+                      />
+                    </div>
                   </div>
                 </div>
 
+                {/* Project type */}
                 <div className="flex flex-col gap-2">
-                  <span id="budget-label" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                  <span
+                    id="ptype-label"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                  >
+                    Project type
+                  </span>
+                  <div
+                    className="flex flex-wrap gap-2"
+                    role="group"
+                    aria-labelledby="ptype-label"
+                  >
+                    {projectTypes.map((p) => (
+                      <button
+                        type="button"
+                        key={p}
+                        aria-pressed={projectType === p}
+                        onClick={() => setProjectType(p)}
+                        className={pillClass(projectType === p)}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Budget */}
+                <div className="flex flex-col gap-2">
+                  <span
+                    id="budget-label"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                  >
                     Budget
                   </span>
-                  <div className="flex flex-wrap gap-2" role="group" aria-labelledby="budget-label">
+                  <div
+                    className="flex flex-wrap gap-2"
+                    role="group"
+                    aria-labelledby="budget-label"
+                  >
                     {budgets.map((b) => (
                       <button
                         type="button"
                         key={b}
                         aria-pressed={budget === b}
                         onClick={() => setBudget(b)}
-                        className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                          budget === b
-                            ? "border-accent bg-accent/15 text-fg"
-                            : "border-fg/10 text-fg/55 hover:border-fg/25"
-                        }`}
+                        className={pillClass(budget === b)}
                       >
                         {b}
                       </button>
@@ -272,7 +379,10 @@ export default function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-message" className="text-xs font-medium uppercase tracking-wider text-fg/45">
+                  <label
+                    htmlFor="contact-message"
+                    className="text-xs font-medium uppercase tracking-wider text-fg/45"
+                  >
                     Message
                   </label>
                   <textarea
@@ -287,12 +397,33 @@ export default function Contact() {
                 </div>
 
                 <div className="mt-2">
-                  <MagneticButton type="submit" variant="primary" className="w-full">
-                    Send via WhatsApp <Send className="h-4 w-4" />
+                  <MagneticButton
+                    type="submit"
+                    variant="primary"
+                    className="w-full"
+                    disabled={sending}
+                  >
+                    {sending ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+                      </>
+                    ) : (
+                      <>
+                        Send via WhatsApp <Send className="h-4 w-4" />
+                      </>
+                    )}
                   </MagneticButton>
                 </div>
-                <p className="text-center text-xs text-fg/40">
-                  Opens WhatsApp with your details ready to send.
+                <p className="text-center text-xs leading-relaxed text-fg/40">
+                  Opens WhatsApp with your details ready to send. By submitting you
+                  agree to our{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-accent-soft underline-offset-2 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
                 </p>
               </form>
             )}

@@ -228,16 +228,35 @@ export const testimonials: {
   // },
 ];
 
-// 👤 Founder intro — humanises the studio (big trust signal for a small team).
-// TODO: confirm full name, personalise the bio, and add a square headshot at
-// public/brand/founder.png then set `photo: "/brand/founder.png"`.
-// Leave `photo` empty to show initials instead (no broken image).
-export const founder = {
-  name: "Akshat",
-  role: "Founder & Lead Developer",
-  photo: "",
-  bio: "I started TheA21 to help startups and growing businesses launch fast, premium, conversion-focused digital experiences. I lead every project end-to-end — from the first idea to a live, polished product you're proud of.",
-};
+// 👥 Founding team — the real people behind TheA21 (big trust signal for a
+// small studio). Photos are hosted on Cloudinary (external) and used directly;
+// if a photo ever fails to load, the person's initials are shown instead.
+export const founders = [
+  {
+    name: "Aman Singh Tomar",
+    role: "Co-founder — CTO",
+    bio: "Designs and builds the product experience.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781592825/topnotes/profiles/nn4ugaa5pqtj9j4zywws.png",
+    linkedin: "https://www.linkedin.com/in/aman-singh-tomar-370463170/",
+  },
+  {
+    name: "Akshat Nigam",
+    role: "Co-founder — CEO",
+    bio: "Builds and runs the platform.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781592719/topnotes/profiles/nz6adnj8aavyos1wpzc9.jpg",
+    linkedin: "https://www.linkedin.com/in/akshat-nigam-769669229",
+  },
+  {
+    name: "Abhay Singh",
+    role: "Co-founder — COO",
+    bio: "Chief Operating Officer.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781593052/topnotes/profiles/a5bz7abvhs4jxooc7yog.jpg",
+    linkedin: "https://www.linkedin.com/in/abhay-singh-978366221",
+  },
+];
 
 export const faqs = [
   {
@@ -263,3 +282,13 @@ export const faqs = [
 ];
 
 export const budgets = ["< ₹25k", "₹25k – ₹50k", "₹50k – ₹1L", "₹1L+"];
+
+// Project-type options for the contact form — helps qualify each lead.
+export const projectTypes = [
+  "Website",
+  "Landing Page",
+  "Ecommerce",
+  "Web App",
+  "Branding / UI-UX",
+  "Other",
+];

@@ -14,7 +14,7 @@ import WhyUs from "@/components/sections/WhyUs";
 import Promise from "@/components/sections/Promise";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
-import Founder from "@/components/sections/Founder";
+import Founders from "@/components/sections/Founders";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
         <Promise />
         <Testimonials />
         <FAQ />
-        <Founder />
+        <Founders />
         <Contact />
       </main>
       <Footer />
