@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Play, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ArrowDown, ChevronDown } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { hero } from "@/constants/site";
 
@@ -151,7 +151,7 @@ export default function Hero() {
             Start Your Project <ArrowUpRight className="h-4 w-4" />
           </MagneticButton>
           <MagneticButton href="#work" variant="ghost">
-            <Play className="h-4 w-4" /> View Our Work
+            <ArrowDown className="h-4 w-4" /> View Our Work
           </MagneticButton>
         </motion.div>
       </motion.div>

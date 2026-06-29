@@ -49,14 +49,6 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Hide default cursor only on devices that have a fine pointer (desktop) */
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor-active,
-  .custom-cursor-active * {
-    cursor: none;
-  }
-}
-
 ::selection {
   background: #3b82f6;
   color: #fff;

@@ -11,6 +11,7 @@ type Props = {
   variant?: "primary" | "ghost";
   className?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 };
 
 export default function MagneticButton({
@@ -20,6 +21,7 @@ export default function MagneticButton({
   variant = "primary",
   className,
   type = "button",
+  disabled = false,
 }: Props) {
   const ref = useRef<HTMLElement | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -81,11 +83,12 @@ export default function MagneticButton({
       ref={ref as React.RefObject<HTMLButtonElement>}
       type={type}
       onClick={onClick}
+      disabled={disabled}
       onMouseMove={handleMove}
       onMouseLeave={reset}
       animate={{ x: pos.x * 0.4, y: pos.y * 0.4 }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.3 }}
-      className={common}
+      className={cn(common, disabled && "pointer-events-none opacity-60")}
     >
       {shineOverlay}
       {inner}

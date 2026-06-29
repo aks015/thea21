@@ -9,7 +9,7 @@ export const brand = {
   // Short wordmark — used in the navbar logo & footer (keeps it compact).
   shortName: "TheA21",
   tagline: "Your Digital Growth Partner.",
-  email: "hello@thea21.in",
+  email: "thea21groups@gmail.com",
   phone: "+91 82690 06693",
   // 👇 Akshat ka WhatsApp number — international format, sirf digits
   // (no +, no spaces). India ke liye 91 se shuru. Example: "919876543210"
@@ -21,6 +21,7 @@ export const brand = {
     instagram: "",
     linkedin: "",
     twitter: "",
+    facebook: "https://www.facebook.com/profile.php?id=61591489499616",
   },
 };
 
@@ -42,9 +43,9 @@ export const hero = {
 
 export const stats = [
   { value: "100%", label: "Custom-Built" },
-  { value: "<2s", label: "Load Time Focus" },
-  { value: "7+", label: "Industries Covered" },
-  { value: "24/7", label: "Support" },
+  { value: "<2s", label: "Load-Time Focus" },
+  { value: "7+", label: "Industries Designed" },
+  { value: "24h", label: "Response Time" },
 ];
 
 export const services = [
@@ -143,6 +144,39 @@ export const projects = [
   },
 ] as const;
 
+// 🔴 REAL, LIVE projects — actual shipped work (not concepts).
+// `url` is the live link shown on the "Visit Live Site" button + used to
+// auto-generate the preview screenshot. Stack/category yahan apne hisaab se
+// tweak kar lena — ye tumhare apne projects hain.
+export const liveProjects = [
+  {
+    title: "TopNotes",
+    category: "EdTech Platform",
+    tag: "Live Project",
+    url: "https://topnotes-frontend.onrender.com/",
+    blurb:
+      "An education platform where students learn from India's top performers — curated, topper-made notes in one clean, fast place.",
+    challenge:
+      "Quality, exam-ready notes are scattered across the web and hard to trust.",
+    solution:
+      "A single, fast platform to access curated notes made by verified toppers.",
+    stack: ["React", "Node.js", "MongoDB", "Tailwind"],
+  },
+  {
+    title: "PrepMeet",
+    category: "Mentorship Platform",
+    tag: "Live Project",
+    url: "https://prep-meet-nu.vercel.app/",
+    blurb:
+      "A mentorship platform that connects people with mentors who've actually been there — book a session and get guidance that's real.",
+    challenge:
+      "Finding a mentor who has actually walked the path is hard and intimidating.",
+    solution:
+      "A booking platform that connects people with experienced mentors for 1:1 guidance.",
+    stack: ["Next.js", "Tailwind", "Node.js", "MongoDB"],
+  },
+] as const;
+
 export const process = [
   { step: "01", title: "Discovery", desc: "We learn your goals, brand and audience to define the right strategy." },
   { step: "02", title: "Design", desc: "We craft a premium UI/UX prototype you'll fall in love with." },
@@ -175,6 +209,55 @@ export const promises = [
   { title: "Post-Launch Support", desc: "We're here after launch for updates and peace of mind.", icon: "LifeBuoy" },
 ];
 
+// Real client testimonials. The Testimonials section auto-hides while this is
+// empty, so the site NEVER shows fake reviews. Add real ones from TopNotes /
+// PrepMeet owners (and future clients) and they'll appear automatically.
+// `avatar` is optional — without it, the client's initials are shown.
+export const testimonials: {
+  quote: string;
+  name: string;
+  role: string;
+  avatar?: string;
+}[] = [
+  // {
+  //   quote:
+  //     "TheA21 turned our idea into a fast, beautiful product in record time. Communication was clear and the result exceeded expectations.",
+  //   name: "Client Name",
+  //   role: "Founder, Company",
+  //   avatar: "/brand/clients/client-name.png", // optional
+  // },
+];
+
+// 👥 Founding team — the real people behind TheA21 (big trust signal for a
+// small studio). Photos are hosted on Cloudinary (external) and used directly;
+// if a photo ever fails to load, the person's initials are shown instead.
+export const founders = [
+  {
+    name: "Aman Singh Tomar",
+    role: "Co-founder — CTO",
+    bio: "Designs and builds the product experience.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781592825/topnotes/profiles/nn4ugaa5pqtj9j4zywws.png",
+    linkedin: "https://www.linkedin.com/in/aman-singh-tomar-370463170/",
+  },
+  {
+    name: "Akshat Nigam",
+    role: "Co-founder — CEO",
+    bio: "Builds and runs the platform.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781592719/topnotes/profiles/nz6adnj8aavyos1wpzc9.jpg",
+    linkedin: "https://www.linkedin.com/in/akshat-nigam-769669229",
+  },
+  {
+    name: "Abhay Singh",
+    role: "Co-founder — COO",
+    bio: "Chief Operating Officer.",
+    photo:
+      "https://res.cloudinary.com/dttwefsmg/image/upload/c_fill,w_400,h_400,q_auto,f_auto/v1781593052/topnotes/profiles/a5bz7abvhs4jxooc7yog.jpg",
+    linkedin: "https://www.linkedin.com/in/abhay-singh-978366221",
+  },
+];
+
 export const faqs = [
   {
     q: "How long does a website take?",
@@ -199,3 +282,13 @@ export const faqs = [
 ];
 
 export const budgets = ["< ₹25k", "₹25k – ₹50k", "₹50k – ₹1L", "₹1L+"];
+
+// Project-type options for the contact form — helps qualify each lead.
+export const projectTypes = [
+  "Website",
+  "Landing Page",
+  "Ecommerce",
+  "Web App",
+  "Branding / UI-UX",
+  "Other",
+];
