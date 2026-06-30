@@ -9,7 +9,7 @@ broken or show an error page.
 
 | File                  | Project   | Live URL                                |
 |-----------------------|-----------|-----------------------------------------|
-| `topnotes.png`        | TopNotes  | https://topnotes-frontend.onrender.com/ |
+| `topnotes.png`        | TopNotes  | https://topnotes-frontend-wiuq.onrender.com/ |
 | `prepmeet.png`        | PrepMeet  | https://prep-meet-nu.vercel.app/        |
 
 (The paths are wired in `src/constants/site.ts` → `liveProjects[].cover`.)
