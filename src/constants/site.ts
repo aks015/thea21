@@ -159,7 +159,7 @@ export const liveProjects = [
     title: "TopNotes",
     category: "EdTech Platform",
     tag: "Live Project",
-    url: "https://topnotes-frontend.onrender.com/",
+    url: "https://topnotes-frontend-wiuq.onrender.com/",
     cover: "/work/topnotes.png",
     blurb:
       "An education platform where students learn from India's top performers — curated, topper-made notes in one clean, fast place.",
