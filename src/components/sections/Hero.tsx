@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ArrowDown, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Sparkles } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { hero } from "@/constants/site";
 
@@ -52,8 +52,8 @@ function HeroCanvas() {
       ctx.clearRect(0, 0, width, height);
       
       const isDark = document.documentElement.classList.contains("dark");
-      // Use blue theme color: rgb(59, 130, 246)
-      const baseColor = "59, 130, 246";
+      // Use orange theme color: rgb(255, 77, 0)
+      const baseColor = "255, 77, 0";
 
       // Draw and update particles
       particles.forEach((p) => {
@@ -101,41 +101,7 @@ function HeroCanvas() {
   return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-80 z-0" />;
 }
 
-/** Typewriter that cycles through phrases. */
-function useTypewriter(words: string[]) {
-  const [text, setText] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = words[wordIndex % words.length];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!deleting && text === current) {
-      timeout = setTimeout(() => setDeleting(true), 1600);
-    } else if (deleting && text === "") {
-      setDeleting(false);
-      setWordIndex((i) => i + 1);
-    } else {
-      timeout = setTimeout(
-        () => {
-          setText((prev) =>
-            deleting
-              ? current.substring(0, prev.length - 1)
-              : current.substring(0, prev.length + 1)
-          );
-        },
-        deleting ? 40 : 80
-      );
-    }
-    return () => clearTimeout(timeout);
-  }, [text, deleting, wordIndex, words]);
-
-  return text;
-}
-
 export default function Hero() {
-  const typed = useTypewriter(hero.rotating);
   const ref = useRef<HTMLDivElement>(null);
 
   // Mouse-follow background glow
@@ -149,7 +115,7 @@ export default function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
@@ -163,21 +129,21 @@ export default function Hero() {
 
   const container = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
   };
   const item = {
-    hidden: { opacity: 0, y: 35 },
+    hidden: { opacity: 0, y: 25 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col items-center justify-start overflow-hidden bg-grid px-6 pt-32 pb-20 [@media(min-height:800px)]:justify-center [@media(min-height:800px)]:pt-20"
+      className="relative flex min-h-[90svh] flex-col items-center justify-center overflow-hidden bg-grid px-6 pt-24 pb-12 z-10"
     >
       {/* Background Interactive Canvas */}
       <HeroCanvas />
@@ -186,10 +152,10 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
         <motion.div
           style={{ x: bx, y: by }}
-          className="absolute left-1/2 top-1/3 h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-accent/15 blur-[150px]"
+          className="absolute left-1/2 top-1/3 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-accent/15 blur-[150px]"
         />
-        <div className="animate-pulse-slow absolute -left-20 top-1/4 h-96 w-96 rounded-full bg-accent-deep/10 blur-[130px]" />
-        <div className="animate-pulse-slow absolute -right-10 bottom-1/4 h-96 w-96 rounded-full bg-accent-soft/10 blur-[130px]" />
+        <div className="animate-pulse-slow absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-accent-deep/10 blur-[130px]" />
+        <div className="animate-pulse-slow absolute -right-10 bottom-1/4 h-80 w-80 rounded-full bg-accent-soft/10 blur-[130px]" />
       </div>
 
       {/* Radial overlay */}
@@ -200,74 +166,68 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex max-w-5xl flex-col items-center text-center"
+        className="relative z-10 flex max-w-4xl flex-col items-center text-center mt-6"
       >
         <motion.span
           variants={item}
-          className="mb-8 inline-flex max-w-[95vw] items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-center text-[11px] font-semibold tracking-wider text-accent uppercase backdrop-blur-md sm:mb-10 sm:text-xs"
+          className="mb-6 inline-flex max-w-[95vw] items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-1.5 text-center text-[10px] font-bold tracking-wider text-accent uppercase backdrop-blur-sm sm:mb-8 sm:text-xs"
         >
-          <Sparkles className="h-3.5 w-3.5 text-accent animate-spin-slow" />
+          <Sparkles className="h-3.5 w-3.5 text-accent" />
           {hero.badge}
         </motion.span>
 
-        <h1 className="font-display text-[2.75rem] font-black leading-[0.92] tracking-tight sm:text-7xl md:text-[6.5rem] lg:text-[7.5rem]">
-          {hero.lines.map((line, i) => (
-            <motion.span key={i} variants={item} className="block">
-              {i === hero.lines.length - 1 ? (
-                <span className="text-gradient-accent">{line}</span>
-              ) : (
-                <span className="text-gradient">{line}</span>
-              )}
-            </motion.span>
-          ))}
-        </h1>
-
-        <motion.div
+        {/* 100% crawlable, responsive 2-line heading with sparse orange accent */}
+        <motion.h1 
           variants={item}
-          className="mt-8 flex h-10 items-center justify-center font-display text-2xl font-bold text-fg/80 sm:text-4xl"
+          className="font-display text-3xl font-black leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem] max-w-3xl text-fg"
         >
-          <span className="text-fg/55">We craft&nbsp;</span>
-          <span className="inline-flex min-w-[13ch] items-center justify-start">
-            <span className="text-gradient-accent">{typed}</span>
-            <span className="ml-0.5 inline-block h-8 w-[3px] animate-pulse bg-accent sm:h-9" />
-          </span>
-        </motion.div>
+          We Build Premium Digital <span className="text-gradient-accent">Experiences.</span>
+        </motion.h1>
 
+        {/* Static, high-converting copy - no typing layout shift */}
         <motion.p
           variants={item}
-          className="mt-8 max-w-2xl text-base leading-relaxed text-fg/55 sm:text-xl font-normal"
+          className="mt-6 max-w-2xl text-sm leading-relaxed text-fg/55 sm:text-base md:text-lg font-medium"
         >
           {hero.subtitle}
         </motion.p>
 
-        {/* CTAs clearly visible above the fold */}
+        {/* Action triggers clearly visible above the fold */}
         <motion.div
           variants={item}
-          className="mt-12 flex flex-col items-center gap-5 sm:flex-row w-full sm:w-auto"
+          className="mt-8 flex flex-col items-center gap-4 sm:flex-row w-full sm:w-auto"
         >
-          <MagneticButton href="/contact" variant="primary" className="w-full sm:w-auto shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-shadow duration-300">
-            Book a Free Call <ArrowUpRight className="h-4.5 w-4.5" />
+          <MagneticButton href="/contact" variant="primary" className="w-full sm:w-auto shadow-[0_0_25px_rgba(255,77,0,0.15)] hover:shadow-[0_0_35px_rgba(255,77,0,0.3)] transition-shadow duration-300">
+            Start a project <ArrowUpRight className="h-4 w-4" />
           </MagneticButton>
           <MagneticButton href="/work" variant="ghost" className="w-full sm:w-auto hover:bg-accent/10 hover:text-accent transition-colors duration-300">
-            Explore Case Studies <ArrowDown className="h-4 w-4" />
+            View our work <ArrowDown className="h-3.5 w-3.5" />
           </MagneticButton>
         </motion.div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-fg/45"
-      >
-        <span className="text-[9px] uppercase tracking-[0.3em] font-semibold">Scroll</span>
+        {/* Trust building metrics row */}
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          variants={item}
+          className="mt-12 w-full max-w-2xl border-t border-fg/10 pt-6 z-10"
         >
-          <ChevronDown className="h-4 w-4 text-accent" />
+          <div className="flex flex-col sm:flex-row items-center justify-around gap-y-4 gap-x-6 text-center text-sm font-bold uppercase tracking-wider text-fg/60">
+            <div>
+              <span className="block text-2xl font-black text-accent leading-none">15+</span>
+              <span className="text-[10px] text-fg/40 tracking-widest mt-1 block">Projects Shipped</span>
+            </div>
+            <div className="h-8 w-px bg-fg/10 hidden sm:block" />
+            <div>
+              <span className="block text-2xl font-black text-accent leading-none">2+</span>
+              <span className="text-[10px] text-fg/40 tracking-widest mt-1 block">Startups Built</span>
+            </div>
+            <div className="h-8 w-px bg-fg/10 hidden sm:block" />
+            <div>
+              <span className="block text-2xl font-black text-accent leading-none">100%</span>
+              <span className="text-[10px] text-fg/40 tracking-widest mt-1 block">Client Satisfaction</span>
+            </div>
+          </div>
         </motion.div>
+
       </motion.div>
     </section>
   );
