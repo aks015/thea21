@@ -38,7 +38,7 @@ export default function Home() {
         </div>
         <Services />
         <div className={band}>
-          <Work />
+          <Work limit={4} />
         </div>
         <CTABanner />
         <div className={band}>

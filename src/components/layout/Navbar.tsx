@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { brand, nav } from "@/constants/site";
 import { cn } from "@/lib/utils";
@@ -11,38 +13,20 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Scroll-spy: highlight the nav link of the section currently in view.
-  useEffect(() => {
-    const sections = nav
-      .map((n) => document.getElementById(n.href.replace("#", "")))
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => obs.observe(s));
-    return () => obs.disconnect();
   }, []);
 
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
     >
       <nav
@@ -53,7 +37,7 @@ export default function Navbar() {
             : "bg-transparent"
         )}
       >
-        <a href="#" aria-label={brand.name} className="flex items-center gap-2.5">
+        <Link href="/" aria-label={brand.name} className="flex items-center gap-2.5">
           <Image
             src="/brand/logo.png"
             alt={brand.name}
@@ -65,23 +49,26 @@ export default function Navbar() {
           <span className="font-display text-xl font-bold tracking-tight">
             {brand.shortName}
           </span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-1 md:flex">
           {nav.map((item) => {
-            const isActive = active === item.href.replace("#", "");
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
             return (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm transition-colors hover:bg-fg/5 hover:text-fg",
+                    "rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-fg/5 hover:text-fg",
                     isActive ? "bg-fg/10 text-fg" : "text-fg/65"
                   )}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -89,13 +76,13 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg transition-transform hover:scale-[1.03]"
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-fg px-5 py-2.5 text-sm font-semibold text-bg transition-all hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(255,77,0,0.15)]"
           >
             Start Project
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile: theme toggle + menu */}
@@ -103,7 +90,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             aria-label="Toggle menu"
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-fg"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-fg focus:outline-none"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -123,28 +110,31 @@ export default function Navbar() {
           >
             <div className="glass-strong flex flex-col gap-1 rounded-2xl p-4 shadow-2xl">
               {nav.map((item) => {
-                const isActive = active === item.href.replace("#", "");
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href);
                 return (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      "rounded-xl px-4 py-3 text-base transition-colors hover:bg-fg/5 hover:text-fg",
+                      "rounded-xl px-4 py-3 text-base font-semibold transition-colors hover:bg-fg/5 hover:text-fg",
                       isActive ? "bg-fg/10 text-fg" : "text-fg/80"
                     )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-fg px-5 py-3 text-base font-medium text-bg"
+                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-fg px-5 py-3 text-base font-semibold text-bg"
               >
                 Start Project <ArrowUpRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

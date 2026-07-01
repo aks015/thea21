@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/constants/site";
 import Analytics from "@/components/Analytics";
@@ -10,7 +10,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
+const syne = Syne({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -100,7 +100,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} dark`}
+      className={`${inter.variable} ${syne.variable} dark`}
       suppressHydrationWarning
     >
       <head>

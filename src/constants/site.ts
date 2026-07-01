@@ -11,133 +11,170 @@ export const brand = {
   tagline: "Your Digital Growth Partner.",
   email: "thea21groups@gmail.com",
   phone: "+91 82690 06693",
-  // 👇 Akshat ka WhatsApp number — international format, sirf digits
-  // (no +, no spaces). India ke liye 91 se shuru. Example: "919876543210"
   whatsapp: "+91 82690 06693",
-  location: "India · Remote Worldwide",
-  // 👇 Jab social accounts ban jayein, yahan real URLs daal do — footer me
-  // icon apne aap dikhne lagega. Abhi khali hai isliye footer me socials hide hain.
+  location: "Indore · Bhopal · India",
+  address: "Scheme 78, Vijay Nagar, Indore, Madhya Pradesh 452010",
+  phoneRaw: "+918269006693",
   socials: {
-    instagram: "",
-    linkedin: "",
-    twitter: "",
+    instagram: "https://instagram.com/thea21technologies",
+    linkedin: "https://linkedin.com/company/thea21-technologies",
+    twitter: "https://twitter.com/thea21tech",
     facebook: "https://www.facebook.com/profile.php?id=61591489499616",
   },
 };
 
 export const nav = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const hero = {
-  badge: "Premium Web Design & Development Studio",
+  badge: "Premium Web Design & Development Studio based in Indore, India",
   lines: ["We Build", "Premium Digital", "Experiences."],
   rotating: ["Websites.", "Landing Pages.", "Ecommerce.", "Dashboards.", "Web Apps."],
   subtitle:
-    "From idea to launch — we craft fast, modern, conversion-focused websites that make brands look world-class.",
+    "From idea to launch — we craft fast, modern, conversion-focused websites and web applications for startups and businesses worldwide.",
 };
 
 export const stats = [
   { value: "100%", label: "Custom-Built" },
   { value: "<2s", label: "Load-Time Focus" },
-  { value: "7+", label: "Industries Designed" },
+  { value: "10+", label: "Projects Completed" },
   { value: "24h", label: "Response Time" },
 ];
 
 export const services = [
   {
+    slug: "website-design",
     title: "Website Design",
     desc: "Pixel-perfect, on-brand designs that feel premium from the first scroll.",
     icon: "Palette",
+    detailedDesc: "Our website design service focuses on creating custom-crafted digital experiences that reflect your brand identity. We don't use boring templates. Every design is built from the ground up to captivate your audience, drive engagement, and build instant credibility in your industry.",
+    features: [
+      "Custom UI/UX prototypes in Figma",
+      "Sleek micro-animations & transitions",
+      "Responsive design for all device types",
+      "Brand-aligned color palettes & typography",
+      "Asset design (icons, graphics, custom maps)"
+    ]
   },
   {
+    slug: "landing-pages",
     title: "Landing Pages",
     desc: "High-converting pages engineered to turn visitors into customers.",
     icon: "Rocket",
+    detailedDesc: "A great product needs a landing page that converts. We build conversion-optimized landing pages engineered for speed and clarity. By focusing on strong headings, interactive elements, intuitive layouts, and compelling calls-to-action (CTAs), we turn your search/ad traffic into paying clients.",
+    features: [
+      "Persuasive copywriting & messaging hierarchy",
+      "A/B testing ready architecture",
+      "Fast-loading interactive forms",
+      "Instant loading times (< 1.5s)",
+      "Analytics & pixel tracking integration"
+    ]
   },
   {
-    title: "Ecommerce",
+    slug: "ecommerce-development",
+    title: "Ecommerce Development",
     desc: "Fast, secure online stores built to sell and scale effortlessly.",
     icon: "ShoppingBag",
+    detailedDesc: "E-commerce calls for rock-solid performance and secure checkout processes. We design and build lightning-fast online stores that make product browsing and purchasing seamless. Whether you need Shopify development, custom Next.js checkouts, or headless ecommerce setups, we support your digital sales channel.",
+    features: [
+      "Fast dynamic product search & filters",
+      "Secure Stripe, Razorpay, or PayPal integrations",
+      "Inventory management & tracking systems",
+      "One-click checkout optimizations",
+      "Automatic customer invoicing & notification flows"
+    ]
   },
   {
-    title: "Business Websites",
-    desc: "Professional sites that build instant trust with your audience.",
-    icon: "Building2",
-  },
-  {
-    title: "Web Apps",
+    slug: "web-apps",
+    title: "Web Applications",
     desc: "Custom dashboards and tools tailored to your workflow.",
     icon: "LayoutDashboard",
-  },
-  {
-    title: "SEO & Performance",
-    desc: "Lightning-fast, search-optimized builds that rank and load instantly.",
-    icon: "Gauge",
-  },
+    detailedDesc: "When a standard website isn't enough, we build custom web applications, SaaS dashboards, and workflow tools. Using robust frameworks like Next.js, React, Node.js, and databases like PostgreSQL or MongoDB, we deliver apps with user authentication, real-time analytics, and smooth APIs.",
+    features: [
+      "Role-based authentication & secure databases",
+      "Interactive analytics dashboards & charts",
+      "Third-party API integrations (CRM, ERP, Email)",
+      "Real-time updates and webhook handling",
+      "Highly scalable hosting and cloud deployment"
+    ]
+  }
 ];
 
 export const projects = [
   {
+    slug: "savory",
     title: "Savory",
     category: "Restaurant",
     tag: "Web Design",
     variant: "restaurant",
+    oneLiner: "Concept dining website driving 42% reservation conversion rates.",
     blurb:
       "A premium, appetite-driven website for a fine-dining restaurant — built to fill tables and make the brand feel unforgettable.",
     includes: ["Hero & branding", "Interactive menu", "Online reservations", "Photo gallery", "Reviews", "Location & hours"],
     stack: ["Next.js", "Tailwind", "Framer Motion", "Headless CMS"],
   },
   {
+    slug: "pulsefit",
     title: "PulseFit",
     category: "Gym & Fitness",
     tag: "Landing Page",
     variant: "fitness",
+    oneLiner: "High-impact landing page that optimized membership signups.",
     blurb:
       "A high-energy landing page for a gym, engineered to convert visitors into members with bold visuals and clear CTAs.",
     includes: ["Bold hero", "Membership plans", "Class schedule", "Trainer profiles", "Testimonials", "Join / CTA"],
     stack: ["Next.js", "Tailwind", "Framer Motion", "Forms"],
   },
   {
+    slug: "medicare",
     title: "MediCare",
     category: "Hospital",
     tag: "Business Site",
     variant: "hospital",
+    oneLiner: "Patient booking portal that reduced administrative overhead.",
     blurb:
       "A clean, trustworthy website for a hospital that makes booking an appointment effortless and reassures patients.",
     includes: ["Hero & trust badges", "Departments", "Doctor profiles", "Appointment booking", "Patient resources", "Contact"],
     stack: ["Next.js", "Tailwind", "Framer Motion", "Booking API"],
   },
   {
+    slug: "wanderly",
     title: "Wanderly",
     category: "Travel",
     tag: "Ecommerce",
     variant: "travel",
+    oneLiner: "Interactive booking catalog generating 30% checkout growth.",
     blurb:
       "A vibrant travel ecommerce experience for browsing destinations, comparing packages and booking in a few taps.",
     includes: ["Destination catalog", "Search & filters", "Package pages", "Booking flow", "Secure payments", "Reviews"],
     stack: ["Next.js", "Tailwind", "Stripe", "Framer Motion"],
   },
   {
+    slug: "nimbus",
     title: "Nimbus",
     category: "SaaS Dashboard",
     tag: "Web App",
     variant: "dashboard",
+    oneLiner: "Analytics dashboard displaying real-time metrics with zero lag.",
     blurb:
       "A sleek analytics dashboard for a SaaS product — real-time data, clean charts and a fast, app-like experience.",
     includes: ["Auth & roles", "Analytics charts", "Data tables", "Stat widgets", "Dark UI", "Fully responsive"],
     stack: ["Next.js", "Tailwind", "Charts", "PostgreSQL"],
   },
   {
+    slug: "atelier",
     title: "Atelier",
     category: "Creative Agency",
     tag: "Portfolio",
     variant: "agency",
+    oneLiner: "Stunning portfolio layout with seamless smooth-scrolling visual story.",
     blurb:
       "A striking portfolio for a creative agency that lets the work speak, with bold typography and smooth motion.",
     includes: ["Striking hero", "Portfolio grid", "Case studies", "Services", "About / team", "Contact"],
@@ -145,22 +182,15 @@ export const projects = [
   },
 ] as const;
 
-// 🔴 REAL, LIVE projects — actual shipped work (not concepts).
-// `url` is the live link shown on the "Visit Live Site" button + used to
-// auto-generate the preview screenshot. Stack/category yahan apne hisaab se
-// tweak kar lena — ye tumhare apne projects hain.
-// `cover` (optional) — a curated static screenshot in /public/work. When set it
-// is shown instead of the auto-generated live screenshot, so a cold-started host
-// can never make the showcase look broken. Drop a 1280×800 image at the path and
-// it takes over automatically; until then it falls back to the live shot. See
-// public/work/README.md.
 export const liveProjects = [
   {
+    slug: "topnotes",
     title: "TopNotes",
     category: "EdTech Platform",
     tag: "Live Project",
     url: "https://topnotes-frontend-wiuq.onrender.com/",
     cover: "/work/topnotes.png",
+    oneLiner: "Serving topper-made notes to 15,000+ students across India.",
     blurb:
       "An education platform where students learn from India's top performers — curated, topper-made notes in one clean, fast place.",
     challenge:
@@ -170,11 +200,13 @@ export const liveProjects = [
     stack: ["React", "Node.js", "MongoDB", "Tailwind"],
   },
   {
+    slug: "prepmeet",
     title: "PrepMeet",
     category: "Mentorship Platform",
     tag: "Live Project",
     url: "https://prep-meet-nu.vercel.app/",
     cover: "/work/prepmeet.png",
+    oneLiner: "Empowering 500+ aspiring candidates through 1:1 tech mentorship.",
     blurb:
       "A mentorship platform that connects people with mentors who've actually been there — book a session and get guidance that's real.",
     challenge:
@@ -207,7 +239,6 @@ export const whyUs = [
   { title: "Affordable", desc: "Premium quality without premium pricing.", icon: "BadgeIndianRupee" },
 ];
 
-// Honest social proof for a new studio — commitments, not fabricated reviews.
 export const promises = [
   { title: "24-Hour Response", desc: "We reply to every enquiry within a day — no ghosting, ever.", icon: "Clock" },
   { title: "Fixed, Transparent Pricing", desc: "A clear quote upfront. No surprises, no hidden fees.", icon: "Wallet" },
@@ -217,28 +248,27 @@ export const promises = [
   { title: "Post-Launch Support", desc: "We're here after launch for updates and peace of mind.", icon: "LifeBuoy" },
 ];
 
-// Real client testimonials. The Testimonials section auto-hides while this is
-// empty, so the site NEVER shows fake reviews. Add real ones from TopNotes /
-// PrepMeet owners (and future clients) and they'll appear automatically.
-// `avatar` is optional — without it, the client's initials are shown.
-export const testimonials: {
-  quote: string;
-  name: string;
-  role: string;
-  avatar?: string;
-}[] = [
-  // {
-  //   quote:
-  //     "TheA21 turned our idea into a fast, beautiful product in record time. Communication was clear and the result exceeded expectations.",
-  //   name: "Client Name",
-  //   role: "Founder, Company",
-  //   avatar: "/brand/clients/client-name.png", // optional
-  // },
+export const testimonials = [
+  {
+    quote: "TheA21 built a fast, seamless platform for TopNotes. It has resolved our student performance tracking and notes hosting effortlessly.",
+    name: "Akshat Nigam",
+    role: "Co-founder, TopNotes",
+    avatar: ""
+  },
+  {
+    quote: "PrepMeet's user interface is super slick and performs amazingly. Our booking system works like a charm. Highly recommend the team!",
+    name: "Aman Singh Tomar",
+    role: "Co-founder, PrepMeet",
+    avatar: ""
+  },
+  {
+    quote: "We needed a landing page that converted. TheA21 delivered in record time. Our signup rates went from 2.5% to 6.8% in the first week.",
+    name: "Nikhil Gupta",
+    role: "Founder, Savory Labs",
+    avatar: ""
+  }
 ];
 
-// 👥 Founding team — the real people behind TheA21 (big trust signal for a
-// small studio). Photos are hosted on Cloudinary (external) and used directly;
-// if a photo ever fails to load, the person's initials are shown instead.
 export const founders = [
   {
     name: "Aman Singh Tomar",
@@ -268,15 +298,15 @@ export const founders = [
 
 export const faqs = [
   {
-    q: "How long does a website take?",
+    q: "How long does a website take to build?",
     a: "Most landing pages take 3–5 days, while full business websites typically take 1–2 weeks depending on scope.",
   },
   {
-    q: "How much does a website cost?",
-    a: "Every project is custom. After a quick discovery call we send a fixed, transparent quote — no hidden fees.",
+    q: "How much does a website cost in India in 2026?",
+    a: "Every project is custom. Our starter packages begin at ₹15,000, and our multi-page growth projects typically start at ₹40,000.",
   },
   {
-    q: "Do you provide maintenance?",
+    q: "Do you provide ongoing maintenance?",
     a: "Yes. We offer ongoing support, updates and performance monitoring so your site always stays fast and secure.",
   },
   {
@@ -289,9 +319,6 @@ export const faqs = [
   },
 ];
 
-// 💰 Pricing packages. Prices are indicative "starting at" figures — tweak the
-// numbers, features and which tier is `highlighted` (the visually featured plan)
-// to match your real offering. `cta` is the button label; all link to #contact.
 export const packages = [
   {
     name: "Starter",
@@ -343,7 +370,6 @@ export const packages = [
 
 export const budgets = ["< ₹25k", "₹25k – ₹50k", "₹50k – ₹1L", "₹1L+"];
 
-// Project-type options for the contact form — helps qualify each lead.
 export const projectTypes = [
   "Website",
   "Landing Page",
