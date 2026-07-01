@@ -52,8 +52,8 @@ function HeroCanvas() {
       ctx.clearRect(0, 0, width, height);
       
       const isDark = document.documentElement.classList.contains("dark");
-      // Use orange theme color: rgb(255, 77, 0)
-      const baseColor = "255, 77, 0";
+      // Use blue theme color: rgb(59, 130, 246)
+      const baseColor = "59, 130, 246";
 
       // Draw and update particles
       particles.forEach((p) => {
@@ -197,7 +197,7 @@ export default function Hero() {
           variants={item}
           className="mt-8 flex flex-col items-center gap-4 sm:flex-row w-full sm:w-auto"
         >
-          <MagneticButton href="/contact" variant="primary" className="w-full sm:w-auto shadow-[0_0_25px_rgba(255,77,0,0.15)] hover:shadow-[0_0_35px_rgba(255,77,0,0.3)] transition-shadow duration-300">
+          <MagneticButton href="/contact" variant="primary" className="w-full sm:w-auto shadow-[0_0_25px_rgba(59,130,246,0.15)] hover:shadow-[0_0_35px_rgba(59,130,246,0.3)] transition-shadow duration-300">
             Start a project <ArrowUpRight className="h-4 w-4" />
           </MagneticButton>
           <MagneticButton href="/work" variant="ghost" className="w-full sm:w-auto hover:bg-accent/10 hover:text-accent transition-colors duration-300">
