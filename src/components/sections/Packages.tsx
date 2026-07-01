@@ -89,7 +89,7 @@ export default function Packages() {
                     key={pkg.name}
                     className={`group relative flex flex-col rounded-3xl p-8 transition-all duration-300 ${
                       pkg.highlighted
-                        ? "glass-strong border-accent/60 md:-translate-y-4 shadow-[0_20px_50px_rgba(255,77,0,0.15)] ring-1 ring-accent/20"
+                        ? "glass-strong border-accent/60 md:-translate-y-4 shadow-[0_20px_50px_rgba(59,130,246,0.15)] ring-1 ring-accent/20"
                         : "glass hover:-translate-y-2 hover:border-accent/30 hover:shadow-[0_20px_45px_rgba(0,0,0,0.1)]"
                     }`}
                   >

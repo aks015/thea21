@@ -103,7 +103,7 @@ export default function Work({ limit }: { limit?: number }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   key={project.slug}
-                  className="group relative flex flex-col rounded-3xl p-4 glass hover:border-accent/40 hover:shadow-[0_20px_50px_rgba(255,77,0,0.08)] transition-all duration-400 ease-out will-change-transform"
+                  className="group relative flex flex-col rounded-3xl p-4 glass hover:border-accent/40 hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] transition-all duration-400 ease-out will-change-transform"
                 >
                   {/* Browser Mockup / Screenshot Wrapper */}
                   <div className="relative overflow-hidden rounded-2xl border border-fg/10 bg-surface">

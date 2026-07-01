@@ -22,9 +22,9 @@ const config: Config = {
           200: "#15151b",
         },
         accent: {
-          DEFAULT: "#FF4D00",
-          soft: "#FF8552",
-          deep: "#C23600",
+          DEFAULT: "#3B82F6",
+          soft: "#60A5FA",
+          deep: "#1D4ED8",
         },
       },
       fontFamily: {
